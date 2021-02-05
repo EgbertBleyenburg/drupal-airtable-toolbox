@@ -1,2 +1,2 @@
 # drupal-airtable-toolbox
-Drupal 8 sanbox project integration airtable toolbox
+Drupal 8 sandbox project integration airtable toolbox
