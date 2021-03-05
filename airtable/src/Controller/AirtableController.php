@@ -12,7 +12,7 @@ use \Symfony\Component\HttpFoundation\Response;
 /**
  * Simple page controller for drupal.
  */
-define("AIRTABLEAPIKEY", "keyGumRLMILgeHKT5");
+define("AIRTABLEAPIKEY", "*********");
 define("AIRTABLEENDPOINT", "https://api.airtable.com/v0/app8VSyKWS03y2AwB/SamenBeter%20Tools");
 define("AIRTABLEMAXRECORDS", "1000000");
 define("AIRTABLEPAGESIZE", "8");
