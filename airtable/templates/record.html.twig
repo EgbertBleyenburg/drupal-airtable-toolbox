@@ -1,0 +1,186 @@
+<div id="invade"></div>
+<div id="thisisan-{{ context }}"></div>
+<h1 class="tool-record-title">Toolbox</h1>
+<div class="airtable-record">
+<!-- wanneer er geen referrer is waort deze link in de javascript verdonkeremaand -->
+ <div class="go-back">&larr; Terug</div>
+{% for record in records %}
+<ul>
+            {% for key, value in record  %}
+  {#  <li>{{ key }}</li> #}
+  {% endfor %}
+ </ul> 
+  {% if record.Titel != '' %}
+     {% if attribute(record, 'Tool afbeelding')[0] is defined %}
+         {% set images = attribute(record, 'Tool afbeelding') %}
+     {% elseif attribute(record, 'file voor download')[0] is defined %}
+        {% set images = attribute(record, 'file voor download') %}
+     {% else %}
+        {% set images = attribute(record, 'file voor download') %} {# te lui om een lege array te definieren #}
+     {% endif %}
+     {% set downloads = attribute(record, 'file voor download') %}
+     {% set nrofdownloads = downloads|length %}
+ 
+     <div class="tool-title"><h2> {{ record.Titel }}</h2></div>
+     <div class="tool-subtitle mvright"> {{ record.Subtitel }}</div>
+     {% set fases =record.Fase |join(', ')  %}
+     <div class="fases mvright">fase {{ fases }}</div>
+                
+     <div class="record-tease  mvright">
+          <div class="tool-teaser"> {{ attribute(record, 'Teaser (max 50 woorden)') }}</div>
+          {% set nrofimages = images|length %}
+          <div id="record-slider">
+             <div class="slides-container">
+               {% for image in images %}
+                   <div class="slide"> <img src="{{ image.thumbnails.large.url }}"/></div> 
+               {% endfor %}
+             </div>
+             {% if nrofimages > 1 %}
+                 <div class="record-arrows"><span class="record-prev">prev</span>  <span class="record-pager"> 1 / {{ nrofimages }} </span> <span class="record-next">next</span></div>
+             {% endif %}
+          </div>  
+       </div>
+
+      <div class="record-body">                        
+         <div class="toollabel beschrijving"><h3>beschrijving</h3></div>
+         <div class="tool-beschrijving  mvright">{{ record.Beschrijving | myhumanize | raw  }}</div>
+         <div class="toollabel bereiken"><h3>Wat ga je bereiken met de tool?</h3></div>
+         <div class="tool-bereiken  mvright"> {{ attribute(record, 'Wat ga je bereiken met de tool?') | myhumanize | raw  }}</div>
+      <div>          
+      
+      <div class="metadata-and-links">
+          <div class="tags">
+             {% for tag in record.Tags %}
+                 <div class="atag {{ tag|clean_class }}">{{ tag }}</div>
+             {% endfor %}
+          </div>
+          {% if nrofdownloads > 0 %}
+          <div class="tool-subtitle mvright">Downloads</div>
+             {% for download in downloads %}
+             <div class="thedownloads">
+             <a href="{{ download.url }}" download>
+                   <div class="download-image"> <img src="{{ download.thumbnails.large.url }}"/></div> 
+                   <div class="download-filename">{{ download.filename }}</div>
+              </a>
+              </div>
+             {% endfor %}
+          
+          {% endif %}
+           
+           
+            <!--    <div class="toollabel downloadtitel">Titel download document</div>       
+                <div class="tool-downloadtitel"> {{ attribute(record, 'Titel download document') }}</div> -->
+                
+                {% set linknaartool = attribute(record, 'Link naar de tool') %}
+                {% if linknaartool != '' %}
+                   {% set linknaartooltitle = attribute(record, 'Link - titel') %}
+                    {% if linknaartooltitle == '' %}
+                        {% set linknaartooltitle='Link nar tool' %}
+                    {% endif %}
+                     <div class="toollabel linknaartool">Link naar tool</div>
+                   <div class="tool-link-tool"><a href="{{ linknaartool }}" target="_new"> {{ linknaartooltitle }} </a></div>               
+                 {% endif %}
+                 
+          
+                <div class="toollabel organisatie">Organisatie</div>
+                <div class="tool-organisatie"> {{ record.Organisatie }}</div>
+                
+
+               
+                <div class="toollabel auteur">Auteur</div>   
+                <div class="tool-auteur"> {{ record.Auteur }}</div>
+                
+                {% set copyright =  attribute(record, 'Copyright') %}
+                {% if copyright != '' %}
+                  <div class="toollabel copyright">Copyright</div>
+                  <div class="tool-copyright"> {{ record.Copyright }}</div>
+                {% endif %}
+          
+      </div>
+      
+      <div class="tool-reviews  mvright">
+                   <div class="review">
+                        <div class="reviews">
+                   <span class="record-reviews">reviews</span>
+                             {% set averagereviews = attribute(record, 'Average Rating') %}
+                 {% if averagereviews matches '/^\\d+$/' %}   
+                     {% for i in range(1, averagereviews) %}&#9733;{% endfor %}
+                {% else %}
+                   <!-- <span class="no-reviews">nog geen ratings</span>--> &#9734; 
+                {% endif %}
+             </div>
+             <div class="make-a-review">
+             <a target="_new" href="https://airtable.com/shreoVyXQJjL8Gvgj?prefill_Selecteer%20de%20tool%20die%20je%20reviewt={{ record.Titel |url_encode }}">review deze tool!</a>
+             </div>
+             </div>
+
+<div class="the-reviews">
+{% for review in reviews %}
+     <div class="a-review">
+      <div class="naam">{{ review.Naam }}</div>
+      <div class="tekst">{{ attribute(review, 'Review tekst') }}</div>
+    </div>
+  {% endfor %}
+ </div>
+          <!--      <div class="toollabel review-uitgelicht">Review uitgelicht</div> 
+                <div class="tool-review-uitgelicht"> {{ attribute(record, 'Review uitgelicht') }}</div>
+                
+                <div class="toollabel review-s">Tool reviews</div> 
+                <div class="tool-reviews"> {{ attribute(record, 'Tool reviews')|join(', ') }}</div>
+                
+                <div class="toollabel review-tekst">Review tekst (from Tool reviews)</div> 
+                <div class="tool-review-tekst"> {{ attribute(record, 'Review tekst (from Tool reviews)')}}</div>   -->
+      
+      </div>
+                
+             <!--   <div class="toollabel categorie">categorie</div>
+                {% set toolcategorie= attribute(record, 'Tool categorie') %}
+                {# dump( toolcategorie) #}
+                <div class="tool-categorie">{{ toolcategorie|join(', ') }}</div>
+                
+ 
+                 <div class="toollabel logo">Logo/icoon</div>
+                  {% for icoon in attribute(record, 'logo/icoon') %}
+               
+                    <div class="tool-logo"> <img src="{{ icoon.thumbnails.large.url }}"/></div>
+                 {% endfor %}
+                 
+
+               <div class="toollabel draft-due">Draft due</div>
+                <div class="tool-draft-due"> {{ attribute(record, 'Draft due') }}</div>              
+               
+           
+                <div class="toollabel status">Status copy</div>
+                <div class="tool-status"> {{ attribute(record, 'Status copy') }}</div>
+                
+                <div class="toollabel beheerder">Beheerder</div>
+                <div class="tool-beheerder"> {{ record.Beheerder }}</div>
+                
+  
+                
+                <div class="toollabel organisatie-logo">Organisatie logo</div> 
+                {% for orgicoon in attribute(record, 'Organisatie logo') %}
+                    <div class="tool-organisatie-logo"> <img src="{{ orgicoon.thumbnails.large.url }}"/></div>
+                 {% endfor %}
+                
+                <div class="toollabel contact-email">Contactgegevens e-mail (niet publiek zichtbaar)</div>
+                <div class="tool-contact-email"> {{ attribute(record, 'Contactgegevens e-mail (niet publiek zichtbaar)') }}</div>
+                
+
+                <div class="toollabel views">views</div> 
+                <div class="tool-views"> {{ attribute(record, 'Tool views') }}</div>
+                
+                <div class="toollabel downloads">Tool downloads</div>   
+                <div class="tool-downloads"> {{ attribute(record, 'Tool downloads') }}</div>        
+                
+      ->            
+                    
+                       
+{% endif %}
+
+
+             {% endfor %}
+             
+             <div class="go-back">&larr; Terug</div>
+             
+</div>

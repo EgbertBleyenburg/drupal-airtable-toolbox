@@ -1,0 +1,22 @@
+<?php
+
+function airtable_page_attachments(array &$attachments) {
+    $attachments['#attached']['library'][] = 'airtable/airtable';
+}
+
+
+function airtable_theme() {
+    $theme['zoekresultaat_page'] = [
+        'variables' => ['records' => [],'context'=>null],
+        'template' => 'zoekresultaat',
+    ];
+    $theme['zoekresultaat_pages'] = [
+        'variables' => ['records' => [],'offset' =>'','query'=>'','context'=>null],
+        'template' => 'zoekresultaten',
+    ];
+    $theme['zoekresultaat_record'] = [
+        'variables' => ['records' => [],'reviews'=>[],'context'=>null],
+        'template' => 'record',
+    ];
+    return $theme;
+}

@@ -1,0 +1,15 @@
+airtable:
+    version: 1.x
+    css:
+        theme:
+            css/airtable.css: {}
+    js:
+       js/masonry.pkgd.min.js: {}
+       js/imagesloaded.pkgd.min.js: {}
+       js/airtable.js: {}  
+    dependencies:
+     - core/jquery
+     - core/jquery.once    
+     - core/drupal
+     - core/domready
+     - core/drupalSettings

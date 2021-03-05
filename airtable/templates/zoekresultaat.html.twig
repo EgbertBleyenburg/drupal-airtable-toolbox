@@ -1,0 +1,56 @@
+<h1 class="page-title">Toolbox</h1>
+<div id="thisisan-{{ context }}"></div>
+<div id="invade"></div>
+   <div class="tool-search-bar">
+
+<form  method="get" id="search-block-form" accept-charset="UTF-8" data-drupal-form-fields="edit-keys">
+  <div class="form-item js-form-item form-type-search js-form-type-search form-item-keys js-form-item-keys form-no-label form-group">
+      <label for="edit-keys" class="control-label sr-only">Zoek</label>
+  
+  
+  <div class="input-group"><input title="" data-drupal-selector="edit-keys" class="form-search form-control" placeholder="Zoek in tools" type="search" id="edit-keys" name="query" value="{{ query }}" size="15" maxlength="128" data-toggle="tooltip"><span class="input-group-btn"><button type="submit" value="Zoek" class="button js-form-submit form-submit btn-primary btn icon-only" name=""><span class="sr-only">Zoek</span><span class="icon glyphicon glyphicon-search" aria-hidden="true"></span></button></span></div>
+ 
+        <div class="search-reseult-header"></div>
+
+
+  
+  
+  </div>
+     <div class="message-to-user">
+   
+   </div>
+  <div>
+    <div id="filters-type" class="thefilters type">
+      <div class="thefilters-kop">Type<span class="openclosefilters"></span></div>
+      <div class="thefilters-filters">
+         <div id="type-alle" class="filter-filter type-type">alle</div>
+         <div id="type-tool" class="filter-filter type-type">tool</div>
+         <div id="type-model" class="filter-filter type-type">model</div>
+         <div id="type-toepassing" class="filter-filter type-type">toepassing</div>
+         <div id="type-boek" class="filter-filter type-type">boek</div>
+         <div id="type-website" class="filter-filter type-type">website</div>
+         <div id="type-applicatie" class="filter-filter type-type">applicatie</div>
+      </div>
+    </div>
+    <div id="filters-fase" class="thefilters fase">
+      <div class="thefilters-kop">Fase<span class="openclosefilters"></span></div>
+      <div class="thefilters-filters">
+         <div id="fase-alle" class="filter-filter fase-fase">alle</div>
+         <div id="fase-ontdekken" class="filter-filter fase-fase">1. ontdekken</div>
+         <div id="fase-ontwikkelen" class="filter-filter fase-fase">2. ontwikkelen</div>
+         <div id="fase-implementeren" class="filter-filter fase-fase">3. implementeren</div>
+         <div id="fase-borgen" class="filter-filter fase-fase">4. borgen</div>
+      </div>
+    </div>
+    
+  </div>
+</form>
+ 
+   </div>
+
+   
+
+<div class="airtable-zoekresultaat-container masonrydisplay context-{{context}}">
+
+</div>
+<div id="pager" class="airtable"></div>

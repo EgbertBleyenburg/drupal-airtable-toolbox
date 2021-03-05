@@ -1,0 +1,49 @@
+airtable.toolbox:
+  path: '/toolbox/tools'
+  defaults:
+    _controller: '\Drupal\airtable\Controller\AirtableController::home'
+    _title: 'Toolbox'
+  requirements:
+    _permission: 'access content'
+    
+airtable.toolboxajax:
+  path: 'ajax/toolbox/zoekresultaat'
+  defaults:
+    _controller: '\Drupal\airtable\Controller\AirtableController::zoekresultaat'
+    _title: 'Toolbox'
+  requirements:
+    _permission: 'access content'
+    
+airtable.toolboxrecord:
+  path: '/toolbox/tool/{toolname}/{toolid}'
+  defaults:
+    _controller: '\Drupal\airtable\Controller\AirtableController::record'
+    _title: 'Toolbox'
+    toolid: 'none'
+  requirements:
+    _permission: 'access content'
+    
+airtable.toolboxcreaterecord:
+  path: '/toolbox/maak-een-nieuwe-tool'
+  defaults:
+    _controller: '\Drupal\airtable\Controller\AirtableController::redirecttoform'
+    _title: 'Maak een tool'
+  requirements:
+    _permission: 'access content'
+    
+airtable.toolboxframe:
+  path: '/iframe/toolbox'
+  defaults:
+    _controller: '\Drupal\airtable\Controller\AirtableController::iframe'
+    _title: 'Toolbox'
+  requirements:
+    _permission: 'access content'
+    
+airtable.toolboxrecordframe:
+  path: '/iframe/tool/{toolname}/{toolid}'
+  defaults:
+    _controller: '\Drupal\airtable\Controller\AirtableController::iframerecord'
+    _title: 'Toolbox'
+    toolid: 'none'
+  requirements:
+    _permission: 'access content'

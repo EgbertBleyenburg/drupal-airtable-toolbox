@@ -1,0 +1,68 @@
+ <!-- <div class="airtable-zoekresultaat">
+   <div class="search-records-wrapper">
+      <div class="search-records"> -->
+
+           {% for record in records %}
+             {% for key, value in record.fields  %}
+  {#<li>{{ key }}</li> #}
+              {% endfor %}
+      {% if context == 'iframe' %} 
+      <a href="/iframe/tool/{{ record.fields.Titel|url_encode }}/{{ record.id }}">
+       {% else %}
+       <a href="/toolbox/tool/{{ record.fields.Titel|url_encode }}/{{ record.id }}">
+        {% endif %}
+
+   <div class="tool-record">
+                  {% if attribute(record.fields, 'Tool afbeelding')[0] is defined %}
+                       {% set firstImage=attribute(record.fields, 'Tool afbeelding')[0] %}
+                       <div class="theimg tool-afbeelding" style="background-image: url('{{ firstImage.thumbnails.large.url }}');"></div>
+                  {% elseif attribute(record.fields, 'file voor download')[0] is defined %}
+                      {% set firstImage=attribute(record.fields, 'file voor download')[0] %}
+                       <div class="theimg file-for-download" style="background-image: url('{{ firstImage.thumbnails.large.url }}');"></div>
+                       
+                  {% else %}     
+                          <div class="theimg noimage"></div>
+                  {% endif %}
+                  
+                  
+                  {% for image in attribute(record.fields, 'file voor download') %}
+                   <!-- <div class="theimg"> <img src="{{ image.thumbnails.large.url }}"/></div> -->
+                   {% endfor %}
+   <div class="tool-record-wrapper">                
+                 <div class="tool-title">  {{ record.fields.Titel }}</div>
+                 <div class="tool-subtitle"> {{ record.fields.Subtitel }}</div>
+             <!--   <div class="tool-teaser"> {{ attribute(record.fields, 'Teaser (max 50 woorden)') }}</div> -->
+                {% set teaser= attribute(record.fields, 'Teaser (max 50 woorden)') %}
+               <!-- <div class="tool-teaser">{{ teaser|length > 200 ? teaser|slice(0, 200) ~ '...' : teaser  }}</div> -->
+               <div class="tool-teaser">{{ teaser }}</div>
+                <div class="tool-lees-meer">&gt; lees meer</div>
+                {% set fases =record.fields.Fase |join(', ')  %}
+                {% set types =record.fields.Type |join(', ')  %}
+                <div class="fase-en-type"><div class="fase">fase {{ fases }}</div><div class="type">type {{ types }}</div></div>
+           <!-- <p>{{ record.fields.Beschrijving }}</p> -->
+           <div class="tags">
+             {% for tag in record.fields.Tags %}
+               {% if loop.index < 4 %}
+                 <div class="atag {{ tag|clean_class }}">{{ tag }}</div>
+               {% endif %}
+             {% endfor %}
+             </div>
+             <div class="review">
+              {% set reviews = attribute(record.fields, 'Average Rating') %}
+                {% if reviews  is defined %}   
+               {% if reviews matches '/^\\d+$/' %}      
+                   reviews
+                     {% for i in range(1, reviews) %}&#9733;{% endfor %}
+                        {% endif %}
+                {% endif %}
+             </div>
+    </div>
+ </div></a>
+                
+              {% endfor %}
+               {% if offset is not empty %}
+              <span class="offset" data="{{ offset }}"></span>
+              {% endif %}
+ <!--    </div>
+   </div>
+</div>  -->
