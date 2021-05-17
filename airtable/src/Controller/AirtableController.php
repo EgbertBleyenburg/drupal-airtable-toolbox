@@ -149,12 +149,6 @@ class AirtableController {
   }
   
   public function zoekresultaat($context=null) {
-      // $apikey='keyplWjTpdNRa29aB';
-      // $endpoint='https://api.airtable.com/v0/app8VSyKWS03y2AwB/SamenBeter%20Tools';
-      // $maxRecords=2000000;
-      // $pagesize=100;
-      
-      
       $apikey=AIRTABLEAPIKEY;
       $endpoint=AIRTABLEENDPOINT;
       $pagesize=AIRTABLEPAGESIZE;
