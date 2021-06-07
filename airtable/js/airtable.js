@@ -36,7 +36,7 @@
 			        	//alert(decodeURIComponent(tableobj.query));
 			        	var thequery=decodeURIComponent(tableobj.query);
 			        	thequery=	thequery.replace(/\+/g, ' ');
-
+			        	thequery = thequery.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 			        //	alert(fasefilter);// undefined wanneer niets meegegeven
 			        	setfilters(tableobj);
                         //console.log(tableobj);
